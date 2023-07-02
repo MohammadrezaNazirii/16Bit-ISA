@@ -3,9 +3,9 @@
 // Company: 
 // Engineer: 
 // 
-// Create Date:    14:53:26 07/02/2023 
+// Create Date:    23:01:43 07/02/2023 
 // Design Name: 
-// Module Name:    Instruction-Memory 
+// Module Name:    InstructionMemory 
 // Project Name: 
 // Target Devices: 
 // Tool versions: 
@@ -18,7 +18,7 @@
 // Additional Comments: 
 //
 //////////////////////////////////////////////////////////////////////////////////
-module Instruction-Memory(
+module InstructionMemory(
     );
 
 
