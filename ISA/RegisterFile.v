@@ -31,6 +31,12 @@ module RegisterFile(
 
     reg [15:0] Registers [0:15];
     reg [3:0] index;
+    integer i;
+	 
+	 initial begin
+		  for(i=0;i<16;i = i+1)
+            Registers[i] = 0;
+	 end
 
     always @(*) begin
         out1 = Registers[select1];
@@ -41,6 +47,8 @@ module RegisterFile(
             index = select3;
         if(RegWrite == 1)
             Registers[index] = WriteData;
+        for(i=0;i<16;i = i+1)
+            $display("Register %d: %b", i, Registers[i]);
     end
 
 
