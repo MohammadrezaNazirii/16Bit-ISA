@@ -40,6 +40,8 @@ module ControlUnit(
     parameter SWop = 3'b101;
     parameter LWop = 3'b110;
     parameter JMPop = 3'b111;
+	 
+
 
     always @ (opcode) begin
         case(opcode)
@@ -55,7 +57,7 @@ module ControlUnit(
                 PCSrc = 2'b00;//PC+4
             end
             ADDIop:begin
-                RegDst = 1;
+                RegDst = 0;//
                 RegWrite = 1;
                 ALUSrc = 1;
                 ExtSel = 1;
@@ -67,7 +69,7 @@ module ControlUnit(
                 PCSrc = 2'b00;//PC+4
             end
             SHIFTop:begin
-                RegDst = 1;
+                RegDst = 0;//
                 RegWrite = 1;
                 ALUSrc = 1;
                 ExtSel = 0;
@@ -79,7 +81,7 @@ module ControlUnit(
                 PCSrc = 2'b00;//PC+4
             end
             ROTATEop:begin
-                RegDst = 1;
+                RegDst = 0;//
                 RegWrite = 1;
                 ALUSrc = 1;
                 ExtSel = 0;
@@ -95,7 +97,7 @@ module ControlUnit(
                 ALUSrc = 0;
                 MemWrite = 0;
                 MemRead = 0;
-                PCSrc = 2'b00;//PC+4 // age zero shod to alu ba meghdar branch jam mikonim    yaani yeki az vorodi haye ALU meghdar branch hast  // age zero shod bayad to blocki ke zaero shode sign extend konim va ba meghdare PC jam konim
+                PCSrc = 2'b00;//PC+4
                 ALUop = 2'b11;//zero check
                 Branch = 1;
             end
@@ -126,5 +128,6 @@ module ControlUnit(
                 PCSrc = 2'b10;//jump abs
             end
         endcase 
+		  $display("\nControl: RegDst:%b Branch:%b MemRead:%b MemToReg:%b ALUop:%b%b MemWrite:%b ALUSrc:%b RegWrite:%b PCSrc:%b%b ExtSel:%b\n", RegDst, Branch, MemRead, MemToReg, ALUop[1], ALUop[0], MemWrite, ALUSrc, RegWrite, PCSrc[1], PCSrc[0], ExtSel);
     end
 endmodule

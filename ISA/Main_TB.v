@@ -32,7 +32,7 @@ module Main_TB;
 		.clk(clk)
 	);
 	
-	always #200 clk = ~clk;
+	always #10 clk = ~clk;
 
 	initial begin
 		// Initialize Inputs

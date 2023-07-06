@@ -30,20 +30,28 @@ module ALU(
     parameter SHIFT = 2'b01;
     parameter ROTATE = 2'b10;
     parameter ZERO = 2'b11;
+	 
+	 //reg [15:0] temp;
+	 integer temp;
 
 
-    always @(*) begin:Alu
+    always @(data1, data2, ALUop) begin:Alu
 		  integer i;
         case(ALUop)
             ADD:begin
                 result = data1 + data2;
             end
             SHIFT:begin
-                result = data1;
-                if(data2[0] == 1)
-                    result = result << data2[4:1];
-                else
-                    result = result >> data2[4:1];
+					 $display("shift:%d", data2[4:1]);
+					 $display("shift_res: %b", result << data2[4:1]);
+                //result = data1;
+					 temp = data2[4:1];
+					 result = (data2[0]) ? (data1 << temp) : (data1 >> temp);
+                //if(data2[0] == 1)
+                //    result = data1 << data2[4:1];
+                //else
+                //    result = data1 >> data2[4:1];
+					 $display("resss:%b", result);
             end
             ROTATE:begin
                 result = data1;
@@ -58,10 +66,13 @@ module ALU(
                 result = data1 - data2;
             end
         endcase
+		  $display("Data1:%d  Data2:%d", data1, data2);
+		  $display("result:%d", result);
         if(result == 0)
             zero = 1;
         else
             zero = 0;
+		  $display("Zero:%d", zero);
     end
 
 

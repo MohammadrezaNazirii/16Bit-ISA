@@ -41,8 +41,16 @@ module Main(
 	 wire [15:0] WriteData;//for write back
 	 wire [15:0] RegOut1;
 	 wire [15:0] RegOut2;
-	 reg [15:0] AluInput2;
+	 wire [15:0] AluInput2;
 	 wire [15:0] ALUres;
+	 wire [15:0] OutMem;
+	 
+	 //initial begin
+		 //PC = 0;
+		 //zero = 0;
+		 //Branch = 0;
+		 //PCSrc = 2'b00;
+	 //end
 
 //    always @(posedge clk) begin
         PC instance_pc (
@@ -76,17 +84,20 @@ module Main(
 			   .PCSrc(PCSrc), 
 			   .ExtSel(ExtSel)
 			   );
+		assign WriteData = (MemToReg) ? OutMem : ALUres;
         RegisterFile instance_regFile (
+			.clk(clk),
             .select1(instruction[12:9]),
             .select2(instruction[8:5]),
             .select3(instruction[4:1]),
             .RegDst(RegDst),
             .RegWrite(RegWrite),
-            .WriteData(WriteData),
+            .WriteData(WriteData),//ALUres
             .out1(RegOut1),
             .out2(RegOut2)
             );
 		  
+		assign AluInput2 = (ALUSrc) ? extImm : RegOut2;
 		  
 		  //if(ALUSrc == 1)
 		  //    AluInput2 = extImm;
@@ -108,13 +119,15 @@ module Main(
 			   .result(ALUres), 
 			   .zero(zero)
 			   );
+		  
 		  DataMemory instance_dataMem (
+		       .clk(clk),
 			   .MemRead(MemRead), 
 			   .MemWrite(MemWrite), 
 			   .MemtoReg(MemToReg), 
 			   .Address(ALUres), 
 			   .WriteData(RegOut2), 
-			   .outData(WriteData)
+			   .outData(OutMem)
 			   );
 		  
 		  

@@ -25,10 +25,11 @@ module SignExtend(
 
     integer i;
 
-    always @(*) begin
+    always @(in) begin
         for(i=0;i<16;i = i+1)
             out[i] = in[4];
         out[4:0] = in;
+		  //$display("extended: %b", out);
     end
 
 endmodule

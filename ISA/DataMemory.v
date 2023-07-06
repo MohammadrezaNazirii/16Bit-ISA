@@ -19,6 +19,7 @@
 //
 //////////////////////////////////////////////////////////////////////////////////
 module DataMemory(
+    input clk,
     input MemRead,
     input MemWrite,
     input MemtoReg,
@@ -26,11 +27,21 @@ module DataMemory(
     input [15:0] WriteData,
     output reg [15:0] outData
     );
-
+	
 
     reg [7:0] Memory [0:511];
+	 reg [15:0] temp [0:255];
+	 integer j;
+	 
+	 initial begin  
+         $readmemb("memory.txt", temp);
+	      for (j=0 ; j<512;j=j+1)begin 
+		       Memory[2*j] = temp[j][15:8];
+             Memory[2*j+1] = temp[j][7:0];
+	      end
+     end
 
-    always @(*) begin
+    always @(MemRead, MemWrite, MemtoReg, Address, WriteData) begin
         if(MemRead & !MemWrite)begin
             outData[15:8] = Memory[2*Address];
             outData[7:0] = Memory[2*Address+1];
@@ -41,7 +52,14 @@ module DataMemory(
             //    outData[7:0] = Memory[2*Address+1];
             //end
         end
-        else if(!MemRead & MemWrite)begin
+        //else if(!MemRead & MemWrite)begin
+        //    Memory[2*Address] = WriteData[15:8];
+        //    Memory[2*Address+1] = WriteData[7:0];
+        //end
+    end
+
+    always @(negedge clk)begin
+        if(!MemRead & MemWrite)begin
             Memory[2*Address] = WriteData[15:8];
             Memory[2*Address+1] = WriteData[7:0];
         end
