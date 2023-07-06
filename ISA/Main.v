@@ -34,9 +34,7 @@ module Main(
     wire ExtSel;
     wire [15:0] PC;
     wire zero;
-    //wire [4:0] imm;
     wire [15:0] extImm;
-    //wire [12:0] absjmp;
     wire [15:0] instruction;
 	 wire [15:0] WriteData;//for write back
 	 wire [15:0] RegOut1;
@@ -44,15 +42,7 @@ module Main(
 	 wire [15:0] AluInput2;
 	 wire [15:0] ALUres;
 	 wire [15:0] OutMem;
-	 
-	 //initial begin
-		 //PC = 0;
-		 //zero = 0;
-		 //Branch = 0;
-		 //PCSrc = 2'b00;
-	 //end
 
-//    always @(posedge clk) begin
         PC instance_pc (
             .clk(clk),
             .oldPC(PC),
@@ -98,20 +88,7 @@ module Main(
             );
 		  
 		assign AluInput2 = (ALUSrc) ? extImm : RegOut2;
-		  
-		  //if(ALUSrc == 1)
-		  //    AluInput2 = extImm;
-		  //else
-		  //    AluInput2 = RegOut1;
-				
-		  //always @(instruction) begin
-		  //    if(ALUSrc == 1)
-			//		AluInput2 = extImm;
-			//   else
-			//		AluInput2 = RegOut1;
-		  //end
-		  
-		  
+
 		  ALU instance_alu (
 			   .data1(RegOut1), 
 			   .data2(AluInput2), 
@@ -129,9 +106,4 @@ module Main(
 			   .WriteData(RegOut2), 
 			   .outData(OutMem)
 			   );
-		  
-		  
-//    end
-
-
 endmodule

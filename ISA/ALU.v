@@ -30,8 +30,7 @@ module ALU(
     parameter SHIFT = 2'b01;
     parameter ROTATE = 2'b10;
     parameter ZERO = 2'b11;
-	 
-	 //reg [15:0] temp;
+
 	 integer temp;
 
 
@@ -44,13 +43,8 @@ module ALU(
             SHIFT:begin
 					 $display("shift:%d", data2[4:1]);
 					 $display("shift_res: %b", result << data2[4:1]);
-                //result = data1;
 					 temp = data2[4:1];
 					 result = (data2[0]) ? (data1 << temp) : (data1 >> temp);
-                //if(data2[0] == 1)
-                //    result = data1 << data2[4:1];
-                //else
-                //    result = data1 >> data2[4:1];
 					 $display("resss:%b", result);
             end
             ROTATE:begin

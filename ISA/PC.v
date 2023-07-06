@@ -44,9 +44,9 @@ module PC(
             end
             2'b00:begin
                 if(zero & branch)
-                    Pc = oldPC + 2 + ExtBrnImm; //Pc = oldPC + 2 + ExtBrnImm;
+                    Pc = oldPC + 2 + ExtBrnImm;
                 else
-                    Pc = Pc + 2; //Pc = Pc + 2;
+                    Pc = Pc + 2;
             end
 				default begin
 					Pc = Pc + 2;

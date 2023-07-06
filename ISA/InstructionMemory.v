@@ -38,8 +38,7 @@ module InstructionMemory(
         end
     end
 
-    always @(pc) begin //pc
-		  //$display("\nins_pc: %d\n", pc);
+    always @(pc) begin
         ins[15:8] = Memory[pc];
         ins[7:0] = Memory[pc+1];
 		  $display("\ninstruction: %b\n", ins);

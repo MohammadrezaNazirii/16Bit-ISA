@@ -45,17 +45,7 @@ module DataMemory(
         if(MemRead & !MemWrite)begin
             outData[15:8] = Memory[2*Address];
             outData[7:0] = Memory[2*Address+1];
-            //if(!MemtoReg)//useless
-            //    outData = Address;
-            //else begin
-            //    outData[15:8] = Memory[2*Address];
-            //    outData[7:0] = Memory[2*Address+1];
-            //end
         end
-        //else if(!MemRead & MemWrite)begin
-        //    Memory[2*Address] = WriteData[15:8];
-        //    Memory[2*Address+1] = WriteData[7:0];
-        //end
     end
 
     always @(negedge clk)begin
